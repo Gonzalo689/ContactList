@@ -1,0 +1,58 @@
+<h2 class=" text-center mb-5" >
+    @if (contact) {
+        Modificar
+    }@else {
+        Crear 
+    }
+    contacto
+</h2>
+
+<div class="row row-cols-3 justify-content-center">
+
+    @if (form) {
+
+        <form [formGroup]="form"  (ngSubmit)="save()" >
+
+            <div class="mb-3">
+                <label for="name" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Nombre" formControlName="name" required minlength="3">
+
+
+                @if (form.get('name')?.hasError('required') && form.get('name')?.touched ) {
+                    <p class="invalid-feedback d-block">Este campo es obligatorio</p>
+                }@else if (form.get('name')?.hasError('minlength')) {
+                    <p class="invalid-feedback d-block">El nombre debe tener al menos 3 caracteres</p>   
+                }
+                
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Email" formControlName="email" required minlength="3">
+
+                @if (form.get('email')?.hasError('required') && form.get('email')?.touched ) {
+                    <p class="invalid-feedback d-block">Este campo es obligatorio</p>
+                }@else if (form.get('email')?.hasError('email')) {
+                    <p class="invalid-feedback d-block">El email no es valido</p>
+                }
+            </div>
+
+            <div class="text-end">  
+                <button type="button" class="btn btn-secondary" routerLink="/">
+                    Cancelar
+                </button>
+                <button class="btn btn-primary ms-2">
+                    @if (contact) {
+                        Actualizar 
+                    }@else {
+                        Crear 
+                    }
+                    contacto
+                </button>
+            </div>
+
+
+        </form>
+
+    }
+</div>
